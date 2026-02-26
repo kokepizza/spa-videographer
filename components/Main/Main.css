@@ -1,0 +1,4 @@
+.main-container {
+    padding-bottom: 40px; /* Space for the fixed nav */
+    min-height: calc(100vh - 40px);
+}

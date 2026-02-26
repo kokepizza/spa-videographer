@@ -1,0 +1,32 @@
+.nav {
+    position: fixed;
+    bottom: 12px;
+    left: 12px;
+    width: calc(100% - 24px);
+    display: flex;
+    gap: 1px;
+    z-index: 1000;
+}
+
+.nav-button {
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    background: var(--light-gray);
+    font-family: var(--font-mono);
+    width: 100%;
+    padding: 4px 8px;
+    line-height: 100%;
+    display: flex;
+    text-transform: uppercase;
+    white-space: pre;
+    cursor: pointer;
+}
+
+.bracket {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.nav-button.active .bracket {
+    opacity: 1;
+}
