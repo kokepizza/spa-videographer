@@ -1,7 +1,7 @@
 export default function HomeView() {
   return (
-    <section className="h-screen flex items-center justify-center">
-      <h1 className="text-5xl font-light">
+    <section className="home-view-section">
+      <h1 className="">
         Creative Videographer
       </h1>
     </section>

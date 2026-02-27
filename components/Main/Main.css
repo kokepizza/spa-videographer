@@ -1,4 +1,11 @@
 .main-container {
-    padding-bottom: 40px; /* Space for the fixed nav */
-    min-height: calc(100vh - 40px);
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1px;
+}
+
+.home-view-section {
+    position: absolute;
+    inset: 0;
+    width: 100%;
 }
