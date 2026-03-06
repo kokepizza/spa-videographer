@@ -5,7 +5,7 @@ import Nav from "@/components/Nav/Nav";
 import Main from "@/components/Main/Main";
 import About from "@/components/About/About";
 
-export default function Page() {
+export default function HomePage() {
   const [view, setView] = useState<"home" | "grid">("home");
   const [isAboutOpen, setIsAboutOpen] = useState(false);
 
