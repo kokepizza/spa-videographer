@@ -1,48 +1,50 @@
 import "./Nav.css";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 type Props = {
-  currentView: "home" | "grid";
   isAboutOpen: boolean;
-  setView: (view: "home" | "grid") => void;
   toggleAbout: () => void;
 };
 
 export default function Nav({
-  currentView,
   isAboutOpen,
-  setView,
   toggleAbout,
 }: Props) {
+  const pathname = usePathname();
+
   return (
-    <nav className="nav">
-      
-      <button
-        onClick={() => setView("home")}
-        className={`nav-button ${!isAboutOpen && currentView === "home" ? "active" : ""}`}
-      >
+    <>
+      <nav className="nav">
+        <Link href="/" className={`nav-button ${!isAboutOpen && pathname === "/" ? "active" : ""}`}>
           <span className="bracket">[ </span>
           <p>home</p>
           <span className="bracket"> ]</span>
-      </button>
+        </Link>
 
-      <button
-        onClick={() => setView("grid")}
-        className={`nav-button ${!isAboutOpen && currentView === "grid" ? "active" : ""}`}
-      >
-        <span className="bracket">[ </span>
-        <p>grid</p>
-        <span className="bracket"> ]</span>
-      </button>
+        <Link href="/grid" className={`nav-button ${!isAboutOpen && pathname === "/grid" ? "active" : ""}`}>
+          <span className="bracket">[ </span>
+          <p>grid</p>
+          <span className="bracket"> ]</span>
+        </Link>
 
-      <button
-        onClick={toggleAbout}
-        className={`nav-button ${isAboutOpen ? "active" : ""}`}
-      >
-        <span className="bracket">[ </span>
-        <p>info</p>
-        <span className="bracket"> ]</span>
-      </button>
+        <button
+          onClick={toggleAbout}
+          className={`nav-button ${isAboutOpen ? "active" : ""}`}
+        >
+          <span className="bracket">[ </span>
+          <p>about</p>
+          <span className="bracket"> ]</span>
+        </button>
+      </nav>
 
-    </nav>
+      <div className={`about-modal ${isAboutOpen ? 'active' : ''}`} onClick={toggleAbout}>
+        <div className="about-content" onClick={(e) => e.stopPropagation()}>
+          <p>
+            Welcome to my videography world. I am a passionate storyteller through the lens, capturing life's most precious moments with cinematic flair. From intimate weddings to epic adventures, every frame tells a unique narrative. Let me transform your memories into timeless visual poetry.
+          </p>
+        </div>
+      </div>
+    </>
   );
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import NavClient from "@/components/Nav/NavClient";
 
 export const metadata: Metadata = {
   title: "Ozzy Films",
@@ -16,6 +17,7 @@ export default function RootLayout({
       <body
         className="antialiased"
       >
+        <NavClient />
         {children}
       </body>
     </html>
