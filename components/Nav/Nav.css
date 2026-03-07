@@ -11,11 +11,11 @@
 .nav-button {
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
-    background: var(--light-gray);
+    background: rgba(232, 232, 232, 0.8);
     font-family: var(--font-mono);
     width: 100%;
     padding: 4px;
-    border-radius: 100px;
+    border-radius: 4px;
     line-height: 100%;
     display: flex;
     text-transform: uppercase;
