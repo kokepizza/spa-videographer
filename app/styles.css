@@ -8,18 +8,18 @@
   font-display: swap;
 }
 
-:root {
-  --white: #F5F5F5;
-  --black: #0D0D0D;
-  --light-gray: #E8E8E8;
-  --dark-gray: #838383;
+@theme {
+  --color-white: #f5f5f5;
+  --color-black: #0d0d0d;
+  --color-light-gray: #e8e8e8;
+  --color-dark-gray: #838383;
   --font-mono: "AndaleMono", monospace;
   --font-serif: "Times New Roman", Times, serif;
 }
 
 body {
-  background: var(--white);
-  color: var(--black);
+  background-color: var(--color-white);
+  color: var(--color-black);
   font-family: var(--font-serif);
   font-size: 12px;
   padding: 12px;
@@ -27,6 +27,6 @@ body {
 }
 
 ::selection {
-  background: var(--light-gray);
-  color: var(--black);
+  background: var(--color-light-gray);
+  color: var(--color-black);
 }
