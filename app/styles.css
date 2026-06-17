@@ -22,7 +22,6 @@ body {
   color: var(--color-black);
   font-family: var(--font-serif);
   font-size: 12px;
-  padding: 12px;
   box-sizing: border-box;
 }
 

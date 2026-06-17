@@ -64,7 +64,7 @@ function CloseButton({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
       type="button"
       onClick={onClose}
       aria-label="Close about"
-      className="fixed top-3 right-3 z-60 flex h-8 w-8 items-center justify-center rounded font-mono text-xs uppercase leading-none text-black/70 bg-light-gray/80 backdrop-blur-md cursor-pointer"
+      className="fixed top-2 right-2 z-60 flex h-8 w-8 items-center justify-center rounded font-mono text-xs uppercase leading-none text-black/70 bg-light-gray/80 backdrop-blur-md cursor-pointer md:top-3 md:right-3"
     >
       ✕
     </button>
@@ -121,7 +121,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="fixed bottom-3 left-3 z-50 w-[calc(100%-24px)]">
+      <header className="fixed bottom-2 left-2 z-50 w-[calc(100%-16px)] md:bottom-3 md:left-3 md:w-[calc(100%-24px)]">
         <nav className="grid w-full grid-cols-2 gap-0.5 md:grid-cols-3">
           <NavLink href="/" label="home" isActive={!isAboutOpen && pathname === "/"} />
           <NavLink href="/grid" label="grid" isActive={!isAboutOpen && pathname === "/grid"} />
