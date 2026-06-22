@@ -1,14 +1,7 @@
 export default function About() {
   return (
-    <div className="font-mono text-xs leading-relaxed text-white/60 uppercase tracking-widest">
-      <p className="text-white text-sm mb-6 leading-snug font-serif normal-case tracking-normal">
-        DOP / Filmmaker / Video editor based in Barcelona.
+      <p className="font-serif tracking-normal">
+      Barcelona-based videographer specializing in Sports, Music, Lifestyle, and Food & Beverage. I create dynamic, story-driven films that blend cinematic aesthetics with authentic moments, helping brands and people connect through powerful visual content.
       </p>
-      <p className="mb-4">
-        I capture light, movement, and emotion — from intimate documentaries to
-        large-scale commercial productions.
-      </p>
-      <p>Available for creative and commercial projects worldwide.</p>
-    </div>
   );
 }

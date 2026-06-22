@@ -8,7 +8,7 @@ import About from "@/components/sections/about";
 
 // ─── Nav item shared styles ────────────────────────────────────────────────
 const navItemClass =
-  "flex w-full cursor-pointer justify-start rounded bg-light-gray/50 p-1 text-left font-mono uppercase leading-none backdrop-blur-sm text-black";
+  "flex w-full cursor-pointer justify-start bg-light-gray/50 p-1 text-left font-mono uppercase leading-none backdrop-blur-sm text-black";
 
 // ─── Nav link (route) ──────────────────────────────────────────────────────
 function NavLink({ href, label, isActive }: { href: string; label: string; isActive: boolean }) {
@@ -64,7 +64,7 @@ function CloseButton({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
       type="button"
       onClick={onClose}
       aria-label="Close about"
-      className="fixed top-2 right-2 z-60 flex h-8 w-8 items-center justify-center rounded font-mono text-xs uppercase leading-none text-black bg-light-gray/50 backdrop-blur-sm cursor-pointer md:top-3 md:right-3"
+      className="fixed top-2 right-2 z-60 flex h-8 w-8 items-center justify-center font-mono text-xs uppercase leading-none text-black bg-light-gray/50 backdrop-blur-sm cursor-pointer md:top-3 md:right-3"
     >
       ✕
     </button>
@@ -80,7 +80,7 @@ function AboutModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
       onClick={onClose}
     >
       <div
-        className="bg-black rounded w-[min(560px,90vw)] mx-6 p-12"
+        className="bg-light-gray w-[min(560px,90vw)] mx-6 p-12"
         onClick={(e) => e.stopPropagation()}
       >
         <About />
