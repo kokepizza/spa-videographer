@@ -88,14 +88,16 @@ export default function HomePage() {
         {activeVideo && (
           <video
             key={activeVideo}
-            src={activeVideo}
             autoPlay
             muted
             loop
             playsInline
             preload="metadata"
             className="h-full w-full object-cover"
-          />
+          >
+            <source src={activeVideo.replace(".mp4", ".webm")} type="video/webm" />
+            <source src={activeVideo} type="video/mp4" />
+          </video>
         )}
       </div>
 

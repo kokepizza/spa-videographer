@@ -8,7 +8,7 @@ import About from "@/components/sections/about";
 
 // ─── Nav item shared styles ────────────────────────────────────────────────
 const navItemClass =
-  "flex w-full cursor-pointer justify-start rounded bg-light-gray/50 p-1 text-left font-mono uppercase leading-none backdrop-blur-[12px]";
+  "flex w-full cursor-pointer justify-start rounded bg-light-gray/50 p-1 text-left font-mono uppercase leading-none backdrop-blur-sm text-black";
 
 // ─── Nav link (route) ──────────────────────────────────────────────────────
 function NavLink({ href, label, isActive }: { href: string; label: string; isActive: boolean }) {
@@ -64,7 +64,7 @@ function CloseButton({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
       type="button"
       onClick={onClose}
       aria-label="Close about"
-      className="fixed top-2 right-2 z-60 flex h-8 w-8 items-center justify-center rounded font-mono text-xs uppercase leading-none text-black/70 bg-light-gray/50 backdrop-blur-[12px] cursor-pointer md:top-3 md:right-3"
+      className="fixed top-2 right-2 z-60 flex h-8 w-8 items-center justify-center rounded font-mono text-xs uppercase leading-none text-black bg-light-gray/50 backdrop-blur-sm cursor-pointer md:top-3 md:right-3"
     >
       ✕
     </button>
@@ -73,32 +73,13 @@ function CloseButton({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
 
 // ─── About modal ───────────────────────────────────────────────────────────
 function AboutModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
-  const overlayRef = useRef<HTMLDivElement>(null);
-  const modalRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    gsap.set(modalRef.current, { y: "120vh" });
-    gsap.set(overlayRef.current, { autoAlpha: 0 });
-  }, []);
-
-  useEffect(() => {
-    if (isOpen) {
-      gsap.to(overlayRef.current, { autoAlpha: 1, duration: 0.4, ease: "power2.out" });
-      gsap.to(modalRef.current, { y: 0, duration: 0.7, ease: "power3.out" });
-    } else {
-      gsap.to(overlayRef.current, { autoAlpha: 0, duration: 0.35, ease: "power2.in" });
-      gsap.to(modalRef.current, { y: "120vh", duration: 0.5, ease: "power3.in" });
-    }
-  }, [isOpen]);
-
   return (
     <div
-      ref={overlayRef}
-      className="fixed inset-0 z-40 flex items-center justify-center backdrop-blur-sm bg-black/15"
+      style={{ opacity: isOpen ? 1 : 0, transition: "opacity 0.4s ease" }}
+      className={`fixed inset-0 z-40 flex items-center justify-center backdrop-blur-sm bg-black/20${isOpen ? "" : " pointer-events-none"}`}
       onClick={onClose}
     >
       <div
-        ref={modalRef}
         className="bg-black rounded w-[min(560px,90vw)] mx-6 p-12"
         onClick={(e) => e.stopPropagation()}
       >
