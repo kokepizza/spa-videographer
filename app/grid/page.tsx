@@ -1,32 +1,30 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-
-const projects = [
-  { title: "Liquid Gold", category: "Food & Beverage", slug: "food-cocktail" },
-  { title: "Morning Ritual", category: "Food & Beverage", slug: "food-coffee" },
-  { title: "The Feast", category: "Food & Beverage", slug: "food-eating" },
-  { title: "Table No. 7", category: "Food & Beverage", slug: "food-restaurant" },
-  { title: "Rhythm & Motion", category: "Lifestyle", slug: "lifestyle-dancing" },
-  { title: "Through the Lens", category: "Lifestyle", slug: "lifestyle-shooting" },
-  { title: "Street Couture", category: "Lifestyle", slug: "lifestyle-urbanfashion" },
-  { title: "Solitude", category: "Lifestyle", slug: "lifestyle-woman" },
-  { title: "Night Frequencies", category: "Music", slug: "music-dj" },
-  { title: "Pulse", category: "Music", slug: "music-drums" },
-  { title: "Mass Resonance", category: "Music", slug: "music-festival" },
-  { title: "Still Keys", category: "Music", slug: "music-piano" },
-  { title: "Above the Rim", category: "Sport", slug: "sport-basketball" },
-  { title: "The Sweet Science", category: "Sport", slug: "sport-boxing" },
-  { title: "Dust & Chrome", category: "Sport", slug: "sport-desertbike" },
-  { title: "The Beautiful Game", category: "Sport", slug: "sport-football" },
-  { title: "Ritual Strength", category: "Sport", slug: "sport-pushups" },
-  { title: "Into the Distance", category: "Sport", slug: "sport-run" },
-];
+import { projects } from "@/lib/projects";
+import { videoObjectUrls, subscribeToVideosReady, videosReady } from "@/lib/video-cache";
 
 function GridCard({ title, category, slug }: { title: string; category: string; slug: string }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [hovered, setHovered] = useState(false);
+  const [loaded, setLoaded] = useState(videosReady);
+
+  useEffect(() => {
+    return subscribeToVideosReady(() => setLoaded(true));
+  }, []);
+
+  // When the ObjectURL becomes available, update the source so play() uses memory
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!loaded || !video) return;
+    const src = videoObjectUrls.get(`/videos/${slug}.webm`) ?? `/videos/${slug}.webm`;
+    const source = video.querySelector("source");
+    if (source && source.src !== src) {
+      source.src = src;
+      video.load();
+    }
+  }, [loaded, slug]);
 
   const handleEnter = () => {
     setHovered(true);
@@ -58,7 +56,6 @@ function GridCard({ title, category, slug }: { title: string; category: string; 
           className="absolute inset-0 h-full w-full object-cover"
         >
           <source src={`/videos/${slug}.webm`} type="video/webm" />
-          <source src={`/videos/${slug}.mp4`} type="video/mp4" />
         </video>
         <Image
           src={`/thumbnails/${slug}.webp`}

@@ -76,7 +76,7 @@ function AboutModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
   return (
     <div
       style={{ opacity: isOpen ? 1 : 0, transition: "opacity 0.4s ease" }}
-      className={`fixed inset-0 z-40 flex items-center justify-center backdrop-blur-sm bg-black/20${isOpen ? "" : " pointer-events-none"}`}
+      className={`fixed inset-0 z-40 flex items-center justify-center backdrop-blur-sm${isOpen ? "" : " pointer-events-none"}`}
       onClick={onClose}
     >
       <div
