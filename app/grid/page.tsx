@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { projects } from "@/lib/projects";
 import { videoObjectUrls, subscribeToVideosReady, videosReady } from "@/lib/video-cache";
+import ViewTransitionLink from "@/components/ui/view-transition-link";
 
 function GridCard({ title, category, slug }: { title: string; category: string; slug: string }) {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -41,12 +42,16 @@ function GridCard({ title, category, slug }: { title: string; category: string; 
   };
 
   return (
-    <div
-      className="flex flex-col cursor-pointer"
-      onMouseEnter={handleEnter}
-      onMouseLeave={handleLeave}
+    <ViewTransitionLink
+      href={`/work/${slug}`}
+      className="flex flex-col"
     >
-      <div className="relative aspect-4/3 overflow-hidden">
+      <div
+        className="relative aspect-4/3 overflow-hidden"
+        style={{ viewTransitionName: `video-${slug}` }}
+        onMouseEnter={handleEnter}
+        onMouseLeave={handleLeave}
+      >
         <video
           ref={videoRef}
           muted
@@ -66,10 +71,20 @@ function GridCard({ title, category, slug }: { title: string; category: string; 
         />
       </div>
       <div className="flex flex-col items-start gap-px pt-2">
-        <h2 className="font-serif leading-none text-black">{title}</h2>
-        <p className="font-serif leading-none text-dark-gray">{category}</p>
+        <h2
+          className="font-serif leading-none text-black"
+          style={{ viewTransitionName: `title-${slug}` }}
+        >
+          {title}
+        </h2>
+        <p
+          className="font-serif leading-none text-dark-gray"
+          style={{ viewTransitionName: `category-${slug}` }}
+        >
+          {category}
+        </p>
       </div>
-    </div>
+    </ViewTransitionLink>
   );
 }
 

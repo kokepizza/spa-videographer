@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { CustomEase } from "gsap/CustomEase";
 import { projects } from "@/lib/projects";
 import { videoObjectUrls } from "@/lib/video-cache";
+import ViewTransitionLink from "@/components/ui/view-transition-link";
 
 gsap.registerPlugin(CustomEase);
 CustomEase.create("videoIn", "M0,0 C0.06,0.98 0.18,1 1,1");
@@ -53,12 +54,6 @@ export default function HomePage() {
     leaveTimerRef.current = setTimeout(() => setActiveSlug(null), 40);
   };
 
-  const handleClick = (slug: string, e: React.MouseEvent) => {
-    if (!isTouchRef.current) return;
-    e.stopPropagation();
-    setActiveSlug((prev) => (prev === slug ? null : slug));
-  };
-
   const isAnyActive = !!activeSlug;
 
   const videoSrc = activeSlug
@@ -67,7 +62,11 @@ export default function HomePage() {
 
   return (
     <>
-      <div ref={overlayRef} className="fixed inset-0 z-10 pointer-events-none">
+      <div
+        ref={overlayRef}
+        className="fixed inset-0 z-10 pointer-events-none"
+        style={{ viewTransitionName: activeSlug ? `video-${activeSlug}` : undefined }}
+      >
         {activeSlug && videoSrc && (
           <video
             key={activeSlug}
@@ -89,21 +88,37 @@ export default function HomePage() {
             <li
               key={project.slug}
               className={[
-                "relative z-20 cursor-pointer text-left transition-opacity duration-500",
+                "relative z-20 text-left transition-opacity duration-500",
                 isAnyActive && activeSlug !== project.slug ? "opacity-0" : "opacity-100",
               ].join(" ")}
               onMouseEnter={() => handleEnter(project.slug)}
               onMouseLeave={handleLeave}
-              onClick={(e) => handleClick(project.slug, e)}
             >
-              <div className="flex flex-col items-start gap-px">
-                <h2 className="font-serif leading-none text-black">
+              <ViewTransitionLink
+                href={`/work/${project.slug}`}
+                className="flex flex-col items-start gap-px"
+                onBeforeTransition={() => {
+                  // Snap GSAP fade to full opacity so the "before" screenshot
+                  // always captures the overlay at 100%, not mid-animation.
+                  if (overlayRef.current) {
+                    gsap.killTweensOf(overlayRef.current);
+                    gsap.set(overlayRef.current, { opacity: 1 });
+                  }
+                }}
+              >
+                <h2
+                  className="font-serif leading-none text-black"
+                  style={{ viewTransitionName: `title-${project.slug}` }}
+                >
                   {project.title}
                 </h2>
-                <p className="font-serif leading-none text-dark-gray">
+                <p
+                  className="font-serif leading-none text-dark-gray"
+                  style={{ viewTransitionName: `category-${project.slug}` }}
+                >
                   {project.category}
                 </p>
-              </div>
+              </ViewTransitionLink>
             </li>
           ))}
         </ul>

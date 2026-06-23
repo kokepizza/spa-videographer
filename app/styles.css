@@ -37,3 +37,19 @@ body {
   background: var(--color-light-gray);
   color: var(--color-black);
 }
+
+/* ── View Transitions ───────────────────────────────────────────────────── */
+
+/* Root cross-fade for unmatched elements */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.45s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  mix-blend-mode: normal;
+}
+
+/* Shared elements (title, category, video) morph with a slightly longer curve */
+::view-transition-group(*) {
+  animation-duration: 0.5s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}

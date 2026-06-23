@@ -4,6 +4,7 @@ import Footer from "@/components/layout/footer";
 import Header from "@/components/layout/header";
 import Preloader from "@/components/layout/preloader";
 import Lines from "@/components/ui/lines";
+import NavigationResolver from "@/components/layout/navigation-resolver";
 
 export const metadata: Metadata = {
   title: "Videomaker Studio",
@@ -18,6 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="relative antialiased">
+        <NavigationResolver />
         <Preloader />
         <Lines />
         <Header />
