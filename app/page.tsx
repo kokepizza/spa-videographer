@@ -6,6 +6,7 @@ import { CustomEase } from "gsap/CustomEase";
 import { projects } from "@/lib/projects";
 import { videoObjectUrls } from "@/lib/video-cache";
 import ViewTransitionLink from "@/components/ui/view-transition-link";
+import { setGlobalBeforeTransition } from "@/lib/view-transition";
 
 gsap.registerPlugin(CustomEase);
 CustomEase.create("videoIn", "M0,0 C0.06,0.98 0.18,1 1,1");
@@ -17,10 +18,23 @@ export default function HomePage() {
   const overlayRef = useRef<HTMLDivElement>(null);
   const prevSlugRef = useRef<string | null>(null);
   const leaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Ref so the global callback always closes over the current slug without stale state.
+  const activeSlugRef = useRef<string | null>(null);
 
   useEffect(() => {
     isTouchRef.current = window.matchMedia("(hover: none)").matches;
     gsap.set(overlayRef.current, { opacity: 0 });
+
+    // Register once: snap the overlay to full opacity before any view transition
+    // fires from this page (project links AND header nav links).
+    setGlobalBeforeTransition(() => {
+      if (overlayRef.current && activeSlugRef.current) {
+        gsap.killTweensOf(overlayRef.current);
+        gsap.set(overlayRef.current, { opacity: 1 });
+      }
+    });
+
+    return () => setGlobalBeforeTransition(null);
   }, []);
 
   useEffect(() => {
@@ -34,6 +48,7 @@ export default function HomePage() {
     }
 
     prevSlugRef.current = activeSlug;
+    activeSlugRef.current = activeSlug;
   }, [activeSlug]);
 
   useEffect(() => {
@@ -97,14 +112,6 @@ export default function HomePage() {
               <ViewTransitionLink
                 href={`/work/${project.slug}`}
                 className="flex flex-col items-start gap-px"
-                onBeforeTransition={() => {
-                  // Snap GSAP fade to full opacity so the "before" screenshot
-                  // always captures the overlay at 100%, not mid-animation.
-                  if (overlayRef.current) {
-                    gsap.killTweensOf(overlayRef.current);
-                    gsap.set(overlayRef.current, { opacity: 1 });
-                  }
-                }}
               >
                 <h2
                   className="font-serif leading-none text-black"

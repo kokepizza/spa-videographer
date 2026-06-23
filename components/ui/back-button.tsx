@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { pendingTransition } from "@/lib/view-transition";
+import { pendingTransition, runGlobalBeforeTransition } from "@/lib/view-transition";
 
 export default function BackButton() {
   const router = useRouter();
@@ -11,6 +11,8 @@ export default function BackButton() {
       router.back();
       return;
     }
+
+    runGlobalBeforeTransition();
 
     (document as Document & {
       startViewTransition: (cb: () => Promise<void>) => void;

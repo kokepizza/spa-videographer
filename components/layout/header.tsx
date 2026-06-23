@@ -2,8 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import Link from "next/link";
 import gsap from "gsap";
+import ViewTransitionLink from "@/components/ui/view-transition-link";
 import About from "@/components/sections/about";
 
 // ─── Nav item shared styles ────────────────────────────────────────────────
@@ -13,9 +13,9 @@ const navItemClass =
 // ─── Nav link (route) ──────────────────────────────────────────────────────
 function NavLink({ href, label, isActive }: { href: string; label: string; isActive: boolean }) {
   return (
-    <Link href={href} className={`${navItemClass} ${isActive ? "active" : ""}`}>
+    <ViewTransitionLink href={href} className={`${navItemClass} ${isActive ? "active" : ""}`}>
       {isActive ? `[ ${label} ]` : label}
-    </Link>
+    </ViewTransitionLink>
   );
 }
 

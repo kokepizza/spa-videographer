@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { ReactNode } from "react";
-import { pendingTransition } from "@/lib/view-transition";
+import { pendingTransition, runGlobalBeforeTransition } from "@/lib/view-transition";
 
 interface ViewTransitionLinkProps {
   href: string;
@@ -25,15 +25,10 @@ export default function ViewTransitionLink({
     if (!("startViewTransition" in document)) return;
     e.preventDefault();
 
-    // Run before the snapshot so the DOM is in its final "ready" state.
+    // Global hook first (e.g. snap GSAP overlays), then link-specific.
+    runGlobalBeforeTransition();
     onBeforeTransition?.();
 
-    /*
-     * The callback must return a Promise so startViewTransition waits for the
-     * new route DOM to be committed before capturing the "after" snapshot.
-     * NavigationResolver resolves the promise via useLayoutEffect once the
-     * new pathname has mounted.
-     */
     (document as Document & {
       startViewTransition: (cb: () => Promise<void>) => void;
     }).startViewTransition(async () => {
