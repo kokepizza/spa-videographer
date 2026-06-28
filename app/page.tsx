@@ -1,18 +1,23 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import gsap from "gsap";
 import { CustomEase } from "gsap/CustomEase";
 import { projects } from "@/lib/projects";
 import { videoObjectUrls } from "@/lib/video-cache";
-import ViewTransitionLink from "@/components/ui/view-transition-link";
-import { setGlobalBeforeTransition } from "@/lib/view-transition";
+import {
+  setGlobalBeforeTransition,
+  runGlobalBeforeTransition,
+  pendingTransition,
+} from "@/lib/view-transition";
 
 gsap.registerPlugin(CustomEase);
 CustomEase.create("videoIn", "M0,0 C0.06,0.98 0.18,1 1,1");
 CustomEase.create("videoOut", "M0,0 C0.4,0 1,0.6 1,1");
 
 export default function HomePage() {
+  const router = useRouter();
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
   const [isTouch, setIsTouch] = useState(false);
   const isTouchRef = useRef(false);
@@ -28,8 +33,6 @@ export default function HomePage() {
     setIsTouch(touch);
     gsap.set(overlayRef.current, { opacity: 0 });
 
-    // Register once: snap the overlay to full opacity before any view transition
-    // fires from this page (project links AND header nav links).
     setGlobalBeforeTransition(() => {
       if (overlayRef.current && activeSlugRef.current) {
         gsap.killTweensOf(overlayRef.current);
@@ -65,14 +68,39 @@ export default function HomePage() {
     leaveTimerRef.current = setTimeout(() => setActiveSlug(null), 40);
   };
 
-  // Capture phase: intercept taps on mobile before ViewTransitionLink fires.
-  // First tap → show video preview (stop propagation so the link doesn't navigate).
-  // Second tap on the same project → let through so navigation happens normally.
-  const handleItemCaptureClick = (e: React.MouseEvent, slug: string) => {
-    if (!isTouchRef.current) return;
-    if (activeSlug === slug) return; // second tap: allow navigation
-    e.stopPropagation();
-    setActiveSlug(slug);
+  // Navigate using the View Transition API when available, falling back to router.push.
+  const navigateTo = (href: string) => {
+    if (!("startViewTransition" in document)) {
+      router.push(href);
+      return;
+    }
+    runGlobalBeforeTransition();
+    (document as Document & {
+      startViewTransition: (cb: () => Promise<void>) => void;
+    }).startViewTransition(async () => {
+      router.push(href);
+      await pendingTransition();
+    });
+  };
+
+  // Unified click handler for every project link.
+  // Desktop: always navigate (hover already shows the preview).
+  // Touch – first tap: open fullscreen preview (href is undefined, no nav).
+  //       – second tap on same project: navigate and clear the preview.
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, slug: string) => {
+    e.preventDefault();
+
+    if (!isTouchRef.current) {
+      navigateTo(`/work/${slug}`);
+      return;
+    }
+
+    if (activeSlug !== slug) {
+      setActiveSlug(slug);
+    } else {
+      setActiveSlug(null);
+      navigateTo(`/work/${slug}`);
+    }
   };
 
   const isAnyActive = !!activeSlug;
@@ -83,6 +111,7 @@ export default function HomePage() {
 
   return (
     <>
+      {/* Fullscreen video overlay — tappable on touch to dismiss */}
       <div
         ref={overlayRef}
         className={[
@@ -118,11 +147,21 @@ export default function HomePage() {
               ].join(" ")}
               onMouseEnter={() => handleEnter(project.slug)}
               onMouseLeave={handleLeave}
-              onClickCapture={(e) => handleItemCaptureClick(e, project.slug)}
             >
-              <ViewTransitionLink
-                href={`/work/${project.slug}`}
-                className="flex flex-col items-start gap-px"
+              {/*
+               * href is intentionally absent on touch until the preview is open.
+               * First tap → sets activeSlug (preview opens, href becomes real URL).
+               * Second tap → navigates and clears the preview.
+               * Tap on overlay background → clears the preview (href goes back to undefined).
+               */}
+              <a
+                href={
+                  !isTouch || activeSlug === project.slug
+                    ? `/work/${project.slug}`
+                    : undefined
+                }
+                className="flex flex-col items-start gap-px cursor-pointer"
+                onClick={(e) => handleLinkClick(e, project.slug)}
               >
                 <h2
                   className="font-serif leading-none text-black"
@@ -136,7 +175,7 @@ export default function HomePage() {
                 >
                   {project.category}
                 </p>
-              </ViewTransitionLink>
+              </a>
             </li>
           ))}
         </ul>
