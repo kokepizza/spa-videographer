@@ -14,6 +14,7 @@ CustomEase.create("videoOut", "M0,0 C0.4,0 1,0.6 1,1");
 
 export default function HomePage() {
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
+  const [isTouch, setIsTouch] = useState(false);
   const isTouchRef = useRef(false);
   const overlayRef = useRef<HTMLDivElement>(null);
   const prevSlugRef = useRef<string | null>(null);
@@ -22,7 +23,9 @@ export default function HomePage() {
   const activeSlugRef = useRef<string | null>(null);
 
   useEffect(() => {
-    isTouchRef.current = window.matchMedia("(hover: none)").matches;
+    const touch = window.matchMedia("(hover: none)").matches;
+    isTouchRef.current = touch;
+    setIsTouch(touch);
     gsap.set(overlayRef.current, { opacity: 0 });
 
     // Register once: snap the overlay to full opacity before any view transition
@@ -51,13 +54,6 @@ export default function HomePage() {
     activeSlugRef.current = activeSlug;
   }, [activeSlug]);
 
-  useEffect(() => {
-    if (!isTouchRef.current || !activeSlug) return;
-    const close = () => setActiveSlug(null);
-    document.addEventListener("click", close);
-    return () => document.removeEventListener("click", close);
-  }, [activeSlug]);
-
   const handleEnter = (slug: string) => {
     if (isTouchRef.current) return;
     if (leaveTimerRef.current) clearTimeout(leaveTimerRef.current);
@@ -67,6 +63,16 @@ export default function HomePage() {
   const handleLeave = () => {
     if (isTouchRef.current) return;
     leaveTimerRef.current = setTimeout(() => setActiveSlug(null), 40);
+  };
+
+  // Capture phase: intercept taps on mobile before ViewTransitionLink fires.
+  // First tap → show video preview (stop propagation so the link doesn't navigate).
+  // Second tap on the same project → let through so navigation happens normally.
+  const handleItemCaptureClick = (e: React.MouseEvent, slug: string) => {
+    if (!isTouchRef.current) return;
+    if (activeSlug === slug) return; // second tap: allow navigation
+    e.stopPropagation();
+    setActiveSlug(slug);
   };
 
   const isAnyActive = !!activeSlug;
@@ -79,8 +85,12 @@ export default function HomePage() {
     <>
       <div
         ref={overlayRef}
-        className="fixed inset-0 z-10 pointer-events-none"
+        className={[
+          "fixed inset-0 z-10",
+          isTouch && activeSlug ? "pointer-events-auto" : "pointer-events-none",
+        ].join(" ")}
         style={{ viewTransitionName: activeSlug ? `video-${activeSlug}` : undefined }}
+        onClick={isTouch && activeSlug ? () => setActiveSlug(null) : undefined}
       >
         {activeSlug && videoSrc && (
           <video
@@ -108,6 +118,7 @@ export default function HomePage() {
               ].join(" ")}
               onMouseEnter={() => handleEnter(project.slug)}
               onMouseLeave={handleLeave}
+              onClickCapture={(e) => handleItemCaptureClick(e, project.slug)}
             >
               <ViewTransitionLink
                 href={`/work/${project.slug}`}
