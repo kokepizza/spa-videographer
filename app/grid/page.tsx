@@ -91,7 +91,7 @@ function GridCard({ title, category, slug }: { title: string; category: string; 
 export default function GridPage() {
   return (
     <section className="col-span-full pt-4 pb-32">
-      <div className="grid grid-cols-1 gap-y-[60px] md:grid-cols-3 md:gap-x-px">
+      <div className="grid grid-cols-1 gap-y-4 md:gap-y-15 md:grid-cols-3 md:gap-x-px">
         {projects.map((project) => (
           <GridCard key={project.slug} {...project} />
         ))}
