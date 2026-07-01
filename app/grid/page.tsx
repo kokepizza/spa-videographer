@@ -15,7 +15,6 @@ function GridCard({ title, category, slug }: { title: string; category: string; 
     return subscribeToVideosReady(() => setLoaded(true));
   }, []);
 
-  // When the ObjectURL becomes available, update the source so play() uses memory
   useEffect(() => {
     const video = videoRef.current;
     if (!loaded || !video) return;
