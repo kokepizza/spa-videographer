@@ -1,22 +1,5 @@
-export const projects = [
-  { title: "Liquid Gold",        category: "Food & Beverage", slug: "food-cocktail" },
-  { title: "Morning Ritual",     category: "Food & Beverage", slug: "food-coffee" },
-  { title: "The Feast",          category: "Food & Beverage", slug: "food-eating" },
-  { title: "Table No. 7",        category: "Food & Beverage", slug: "food-restaurant" },
-  { title: "Rhythm & Motion",    category: "Lifestyle",       slug: "lifestyle-dancing" },
-  { title: "Through the Lens",   category: "Lifestyle",       slug: "lifestyle-shooting" },
-  { title: "Street Couture",     category: "Lifestyle",       slug: "lifestyle-urbanfashion" },
-  { title: "Solitude",           category: "Lifestyle",       slug: "lifestyle-woman" },
-  { title: "Night Frequencies",  category: "Music",           slug: "music-dj" },
-  { title: "Pulse",              category: "Music",           slug: "music-drums" },
-  { title: "Mass Resonance",     category: "Music",           slug: "music-festival" },
-  { title: "Still Keys",         category: "Music",           slug: "music-piano" },
-  { title: "Above the Rim",      category: "Sport",           slug: "sport-basketball" },
-  { title: "The Sweet Science",  category: "Sport",           slug: "sport-boxing" },
-  { title: "Dust & Chrome",      category: "Sport",           slug: "sport-desertbike" },
-  { title: "The Beautiful Game", category: "Sport",           slug: "sport-football" },
-  { title: "Ritual Strength",    category: "Sport",           slug: "sport-pushups" },
-  { title: "Into the Distance",  category: "Sport",           slug: "sport-run" },
-] as const;
+import projectsData from "./projects.json";
+
+export const projects = projectsData;
 
 export type Project = (typeof projects)[number];

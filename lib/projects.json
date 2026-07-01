@@ -1,20 +1,110 @@
 [
-  { "title": "Liquid Gold", "category": "Food & Beverage", "slug": "food-cocktail" },
-  { "title": "Morning Ritual", "category": "Food & Beverage", "slug": "food-coffee" },
-  { "title": "The Feast", "category": "Food & Beverage", "slug": "food-eating" },
-  { "title": "Table No. 7", "category": "Food & Beverage", "slug": "food-restaurant" },
-  { "title": "Rhythm & Motion", "category": "Lifestyle", "slug": "lifestyle-dancing" },
-  { "title": "Through the Lens", "category": "Lifestyle", "slug": "lifestyle-shooting" },
-  { "title": "Street Couture", "category": "Lifestyle", "slug": "lifestyle-urbanfashion" },
-  { "title": "Solitude", "category": "Lifestyle", "slug": "lifestyle-woman" },
-  { "title": "Night Frequencies", "category": "Music", "slug": "music-dj" },
-  { "title": "Pulse", "category": "Music", "slug": "music-drums" },
-  { "title": "Mass Resonance", "category": "Music", "slug": "music-festival" },
-  { "title": "Still Keys", "category": "Music", "slug": "music-piano" },
-  { "title": "Above the Rim", "category": "Sport", "slug": "sport-basketball" },
-  { "title": "The Sweet Science", "category": "Sport", "slug": "sport-boxing" },
-  { "title": "Dust & Chrome", "category": "Sport", "slug": "sport-desertbike" },
-  { "title": "The Beautiful Game", "category": "Sport", "slug": "sport-football" },
-  { "title": "Ritual Strength", "category": "Sport", "slug": "sport-pushups" },
-  { "title": "Into the Distance", "category": "Sport", "slug": "sport-run" }
+  {
+    "title": "Liquid Gold",
+    "category": "Food & Beverage",
+    "slug": "food-cocktail",
+    "description": "A slow pour catches light like amber — cocktail as ritual, not spectacle. Each ingredient measured with intention, each stir a deliberate pause before the first sip. The glass becomes a frame for color, texture, and the quiet theater of craft behind the bar."
+  },
+  {
+    "title": "Morning Ritual",
+    "category": "Food & Beverage",
+    "slug": "food-coffee",
+    "description": "Steam, silence, and the first sip before the city wakes up. The grinder hums, the kettle settles, and morning light finds its way across the counter. A small ceremony that marks the threshold between sleep and the day ahead."
+  },
+  {
+    "title": "The Feast",
+    "category": "Food & Beverage",
+    "slug": "food-eating",
+    "description": "Hands, plates, laughter — the choreography of sharing a meal. Dishes pass across the table, conversations overlap, and the camera lingers on the unscripted moments between bites. Food here is less about the plate and more about the gathering it creates."
+  },
+  {
+    "title": "Table No. 7",
+    "category": "Food & Beverage",
+    "slug": "food-restaurant",
+    "description": "Warm light, clinking glasses, and the rhythm of a dining room at peak hour. Servers weave between tables while the kitchen holds its breath behind the pass. Every frame captures the tension and grace of hospitality in motion."
+  },
+  {
+    "title": "Rhythm & Motion",
+    "category": "Lifestyle",
+    "slug": "lifestyle-dancing",
+    "description": "Bodies in sync with the beat — movement as pure expression. Limbs trace arcs through smoke and strobe, each gesture a response to sound rather than instruction. The edit follows the pulse, letting rhythm dictate pace and cut."
+  },
+  {
+    "title": "Through the Lens",
+    "category": "Lifestyle",
+    "slug": "lifestyle-shooting",
+    "description": "Framing the world one shutter click at a time. The photographer moves through space with quiet focus, adjusting light and angle until the scene resolves into something worth keeping. A study of observation — of seeing before capturing."
+  },
+  {
+    "title": "Street Couture",
+    "category": "Lifestyle",
+    "slug": "lifestyle-urbanfashion",
+    "description": "Concrete runway, bold silhouettes, attitude in every step. Fashion meets the city as backdrop — graffiti walls, crosswalks, and late-afternoon shadows shaping each look. The camera tracks movement with the same confidence the subject carries."
+  },
+  {
+    "title": "Solitude",
+    "category": "Lifestyle",
+    "slug": "lifestyle-woman",
+    "description": "A quiet portrait of presence — stillness as strength. Soft light, minimal movement, and a subject who needs no performance to hold the frame. The piece asks the viewer to slow down and sit with what is simply there."
+  },
+  {
+    "title": "Night Frequencies",
+    "category": "Music",
+    "slug": "music-dj",
+    "description": "Needles drop, crowds move — the pulse of a room after midnight. Bass travels through bodies before it reaches ears, and the booth becomes the axis around which everything turns. Low light, high energy, and the sustained build of a night that refuses to end."
+  },
+  {
+    "title": "Pulse",
+    "category": "Music",
+    "slug": "music-drums",
+    "description": "Skin on skin with the kit — rhythm built one strike at a time. Close on hands, sticks, and the vibration of each hit resonating through the room. A portrait of percussion stripped to its most physical, most immediate form."
+  },
+  {
+    "title": "Mass Resonance",
+    "category": "Music",
+    "slug": "music-festival",
+    "description": "Thousands of voices, one frequency — live music at scale. The stage looms over a sea of raised hands, and the camera pulls back to show the sheer scope of collective experience. Energy moves in waves from front row to the far edge of the field."
+  },
+  {
+    "title": "Still Keys",
+    "category": "Music",
+    "slug": "music-piano",
+    "description": "Fingers on ivory — intimacy in every note. The piece holds close to the instrument, letting silence between phrases carry as much weight as the music itself. A meditation on touch, tone, and the space a single performer can fill."
+  },
+  {
+    "title": "Above the Rim",
+    "category": "Sport",
+    "slug": "sport-basketball",
+    "description": "Hang time, hardwood, and the split second before the net swallows the ball. The court becomes a stage for athletic geometry — leaps, pivots, and the split-second decisions that separate a good play from a great one. Shot in tight, kinetic frames that mirror the speed of the game."
+  },
+  {
+    "title": "The Sweet Science",
+    "category": "Sport",
+    "slug": "sport-boxing",
+    "description": "Footwork, focus, and the discipline inside the ropes. Each round is a study in control — of breath, of distance, of the will to keep moving when everything asks you to stop. The camera stays close, honoring the craft beneath the combat."
+  },
+  {
+    "title": "Dust & Chrome",
+    "category": "Sport",
+    "slug": "sport-desertbike",
+    "description": "Engine roar against open sky — speed across empty terrain. Dust trails hang in the air long after the bike has passed, and the landscape stretches endlessly in every direction. A portrait of velocity, isolation, and the raw appeal of machine against nature."
+  },
+  {
+    "title": "The Beautiful Game",
+    "category": "Sport",
+    "slug": "sport-football",
+    "description": "Grass, grit, and the collective breath before a decisive play. Eleven players move as one organism, reading each other without words. The film captures both the macro sweep of the pitch and the micro details — a boot on ball, a glance, a sprint into open space."
+  },
+  {
+    "title": "Ritual Strength",
+    "category": "Sport",
+    "slug": "sport-pushups",
+    "description": "Repetition as meditation — strength forged rep by rep. No crowd, no scoreboard — just the body against gravity in a cycle of effort and recovery. The camera holds steady, letting the rhythm of the movement speak for itself."
+  },
+  {
+    "title": "Into the Distance",
+    "category": "Sport",
+    "slug": "sport-run",
+    "description": "Breath, stride, horizon — endurance stripped to its essentials. The runner and the road, nothing between them but rhythm and will. Each frame pulls the eye forward, toward a finish line that exists as much in the mind as on the ground."
+  }
 ]

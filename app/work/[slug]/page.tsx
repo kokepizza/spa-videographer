@@ -36,9 +36,9 @@ export default async function WorkPage({
 
       {/* ── INFO PANEL ──────────────────────────────────────────────────── */}
       {/* order-2 on mobile (below video), order-1 on desktop (left 25dvw) */}
-      <div className="order-2 md:order-1 shrink-0 md:w-[25dvw] flex flex-col justify-between gap-4 px-4 py-3 pb-14 md:px-5 md:py-5 md:pb-14 border-t border-light-gray/40 md:border-t-0 md:border-r md:border-light-gray/40">
+      {/* title → description → back; on desktop the group sits at the bottom */}
+      <div className="order-2 md:order-1 shrink-0 md:w-[25dvw] md:h-full flex flex-col gap-4 md:justify-end px-4 py-3 pb-14 md:px-5 md:py-5 md:pb-14 border-t border-light-gray/40 md:border-t-0 md:border-r md:border-light-gray/40">
 
-        {/* title + category */}
         <div className="flex flex-col gap-0.5">
           <h1
             className="font-serif leading-none text-black"
@@ -54,7 +54,10 @@ export default async function WorkPage({
           </p>
         </div>
 
-        {/* back — goes to the actual previous page in browser history */}
+        <p className="font-serif tracking-normal text-dark-gray">
+          {project.description}
+        </p>
+
         <BackButton />
       </div>
     </div>
